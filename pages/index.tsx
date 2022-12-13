@@ -44,18 +44,18 @@ export default function Home() {
           <Heading my={8} as="h1">Top2000 automatic check</Heading>
           {(songList.length === 0 || isLoading) &&
             <>
-              <Box mb={6}>
+              <Box mb={6} maxWidth="95%">
                 This app works by pasting your sharing URL in the box below. Once you click on Check, the app will automatically verify all of your songs,
                 and tell you if they made it to the top2000 or not!
               </Box>
-              <Input width={750} mb={6} value={shareUrl} onChange={changeShareUrl} isInvalid={shareUrlInvalid()} placeholder='Sharing url' />
+              <Input width={750} maxWidth="95%" mb={6} value={shareUrl} onChange={changeShareUrl} isInvalid={shareUrlInvalid()} placeholder='Sharing url' />
               <Button colorScheme='blue' onClick={checkSongs} disabled={shareUrlInvalid()}>Check</Button>
             </>
           }
           {isLoading && <div>Checking your song list...</div>}
           {songList.length > 0 && <div>
             <Button colorScheme='blue' onClick={reset}>Back</Button>
-            <TableContainer width={800}>
+            <TableContainer width={800} maxWidth="95%">
               <Table >
                 <Thead>
                   <Tr>

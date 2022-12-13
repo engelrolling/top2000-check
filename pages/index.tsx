@@ -40,7 +40,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Flex alignItems="center" flexDirection="column">
+        <Flex alignItems="center" flexDirection="column" wrap="wrap">
           <Heading my={8} as="h1">Top2000 automatic check</Heading>
           {(songList.length === 0 || isLoading) &&
             <>
@@ -55,8 +55,8 @@ export default function Home() {
           {isLoading && <div>Checking your song list...</div>}
           {songList.length > 0 && <div>
             <Button colorScheme='blue' onClick={reset}>Back</Button>
-            <TableContainer width={800} maxWidth="95%">
-              <Table >
+            <TableContainer>
+              <Table size={{ lg: 'md', md: 'sm' }}>
                 <Thead>
                   <Tr>
                     <Th></Th>

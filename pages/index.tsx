@@ -1,5 +1,5 @@
 import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
-import { Box, Button, Flex, Heading, Input, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Button, Flex, Heading, Hide, Input, Show, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { SetStateAction, useState } from 'react'
@@ -59,23 +59,37 @@ export default function Home() {
               <Table size={{ lg: 'md', md: 'sm' }}>
                 <Thead>
                   <Tr>
-                    <Th></Th>
-                    <Th>Artist</Th>
-                    <Th>Name</Th>
-                    <Th>Top2000</Th>
+                    <Show above="sm">
+                      <Th></Th>
+                      <Th>Artist</Th>
+                    </Show>
+                    <Hide above="sm">
+                      <Th>TOP</Th>
+                    </Hide>
+                    <Th>Title</Th>
+                    <Show above="sm">
+                      <Th>Top2000</Th>
+                    </Show>
                   </Tr>
                 </Thead>
                 <Tbody>
                   {songList.map(song =>
                     <Tr key={song.id}>
-                      {song.image ?
-                        <Td p={1}><Image src={song.image} width='44' height='44' alt={song.title}></Image></Td>
-                        :
-                        !song.image && <Td p={1}><Image src="/default.png" width='44' height='44' alt={song.title}></Image></Td>
-                      }
-                      <Td>{song.artist}</Td>
+                      <Show above="sm">
+                        {song.image ?
+                          <Td p={1}><Image src={song.image} width='44' height='44' alt={song.title}></Image></Td>
+                          :
+                          !song.image && <Td p={1}><Image src="/default.png" width='44' height='44' alt={song.title}></Image></Td>
+                        }
+                        <Td>{song.artist}</Td>
+                      </Show>
+                      <Hide above="sm">
+                        <Td>{song.inList ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                      </Hide>
                       <Td>{song.title}</Td>
-                      <Td>{song.inList ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                      <Show above="sm">
+                        <Td>{song.inList ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                      </Show>
                     </Tr>
                   )}
                 </Tbody>

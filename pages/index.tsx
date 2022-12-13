@@ -42,7 +42,7 @@ export default function Home() {
       <main>
         <Flex alignItems="center" flexDirection="column">
           <Heading my={8} as="h1">Top2000 automatic check</Heading>
-          {(!songList.length > 0 && !isLoading) &&
+          {(songList.length === 0 || isLoading) &&
             <>
               <Box mb={6}>
                 This app works by pasting your sharing URL in the box below. Once you click on Check, the app will automatically verify all of your songs,

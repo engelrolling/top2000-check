@@ -4,10 +4,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { SetStateAction, useState } from 'react'
 
+import { Error, Song } from 'npo'
+
 export default function Home() {
   const [isLoading, setLoading] = useState(false)
-  const [shareUrl, setShareUrl] = useState('https://stem.nporadio2.nl/top2000-2022/share/88e0151ddf517941387685694857b74780a3f1da')
-  const [songList, setSongList] = useState([])
+  const [shareUrl, setShareUrl] = useState('')
+  const [songList, setSongList] = useState<Song[]>([])
 
 
   const changeShareUrl = (event: { target: { value: SetStateAction<string> } }) => setShareUrl(event.target.value)
@@ -40,7 +42,7 @@ export default function Home() {
       <main>
         <Flex alignItems="center" flexDirection="column">
           <Heading my={8} as="h1">Top2000 automatic check</Heading>
-          {(!songList?.songs?.length && !isLoading) &&
+          {(!songList.length > 0 && !isLoading) &&
             <>
               <Box mb={6}>
                 This app works by pasting your sharing URL in the box below. Once you click on Check, the app will automatically verify all of your songs,
@@ -51,7 +53,7 @@ export default function Home() {
             </>
           }
           {isLoading && <div>Checking your song list...</div>}
-          {songList?.songs?.length && <div>
+          {songList.length > 0 && <div>
             <Button colorScheme='blue' onClick={reset}>Back</Button>
             <TableContainer width={800}>
               <Table >
@@ -60,11 +62,11 @@ export default function Home() {
                     <Th></Th>
                     <Th>Artist</Th>
                     <Th>Name</Th>
-                    <Th>In top2000</Th>
+                    <Th>In Top2000</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {songList.songs.map(song =>
+                  {songList.map(song =>
                     <Tr key={song.id}>
                       {song.image ?
                         <Td p={1}><Image src={song.image} width='44' height='44' alt={song.title}></Image></Td>

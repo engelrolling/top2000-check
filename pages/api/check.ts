@@ -1,27 +1,13 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { Error, Song } from 'npo'
 
 const song_list_base = "https://backend.stem.nporadio.nl/api/form/top2000-2022/"
 const song_search_base = "https://staatieindetop2000.nporadio2.nl/api/search"
 const song_check_base = "https://staatieindetop2000.nporadio2.nl/_next/data/L8Fe722VQOI3qFPZh612B/"
 
-type Song = {
-  id: number
-  title: string
-  artist: string
-  inList: boolean
-  image?: string
-}
-type SongList = {
-  songs: Song[]
-}
-
-type Error = {
-  error: string
-}
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<SongList | Error>
+  res: NextApiResponse<Song[] | Error>
 ) {
   const sharing_id: string | undefined = String(req.query.share_url) // user song list url
 
@@ -42,5 +28,5 @@ export default async function handler(
     song_list_checked = [...song_list_checked, { id: Number(song._id), title: song._source.title, artist: song._source.artist, image: song._source.image, inList: song_details.pageProps.inList }]
   }
 
-  res.status(200).json({ songs: song_list_checked })
+  res.status(200).json(song_list_checked)
 }

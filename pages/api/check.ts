@@ -21,12 +21,13 @@ export default async function handler(
 
   let song_list_checked: Array<Song> = []
 
-  for (const song of song_list) {
+  await Promise.all(song_list.map(async (song: any) => {
     const get_slug_url = `${song_search_base}?artist=${song._source.artist.replace('&', '-')}&title=${song._source.title.replace('&', '-')}`
     const song_slug = await fetch(get_slug_url).then(r => r.json())
     const song_details = await fetch(`${song_check_base + song_slug.slug}.json`).then(r => r.json())
     song_list_checked = [...song_list_checked, { id: Number(song._id), title: song._source.title, artist: song._source.artist, image: song._source.image, inList: song_details.pageProps.inList }]
-  }
+
+  }))
 
   res.status(200).json(song_list_checked)
 }

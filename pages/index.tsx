@@ -62,7 +62,7 @@ export default function Home() {
                     <Th></Th>
                     <Th>Artist</Th>
                     <Th>Name</Th>
-                    <Th>In Top2000</Th>
+                    <Th>Top2000</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

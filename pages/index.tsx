@@ -34,14 +34,14 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Top2000 song check</title>
+        <title>My Top2000</title>
         <meta name="description" content="Check if your songs made it to the top2000" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
         <Flex alignItems="center" flexDirection="column" wrap="wrap">
-          <Heading my={8} as="h1">Top2000 automatic check</Heading>
+          <Heading my={8} as="h1">My TOP2000</Heading>
           {(songList.length === 0 || isLoading) &&
             <>
               <Box mb={6} maxWidth="95%">

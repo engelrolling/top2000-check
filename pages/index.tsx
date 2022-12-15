@@ -90,13 +90,17 @@ export default function Home() {
                       </Hide>
                       <Td>{song.title}</Td>
                       <Show above="sm">
-                        <Td>{song.position.current ?
-                          song.position.current < song.position.previous ?
-                            <Flex><FeatherIcon icon="chevron-up" color="green" />{song.position.current}</Flex>
-                            : song.position.current > song.position.previous ?
-                              <Flex><FeatherIcon icon="chevron-down" color="orange" />{song.position.current}</Flex>
-                              : <Flex><FeatherIcon icon="minus" />{song.position.current}</Flex>
-                          : <FeatherIcon icon="x" color="red" />}</Td>
+                        <Td>
+                          {!song.position.current && <FeatherIcon icon="x" color="red" />}
+                          {(!!song.position.current && song.position.previous === 0)
+                            && <Flex><FeatherIcon icon="plus" color="green" />{song.position.current}</Flex>}
+                          {(!!song.position.current && song.position.current < song.position.previous)
+                            && <Flex><FeatherIcon icon="chevron-up" color="green" />{song.position.current}</Flex>}
+                          {(!!song.position.current && song.position.current > song.position.previous && song.position.previous !== 0)
+                            && <Flex><FeatherIcon icon="chevron-down" color="orange" />{song.position.current}</Flex>}
+                          {(!!song.position.current && song.position.current === song.position.previous)
+                            && <Flex><FeatherIcon icon="minus" />{song.position.current}</Flex>}
+                        </Td>
                         <Td>{song.broadcastTime &&
                           new Date(song.broadcastTime).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam', month: 'short', day: 'numeric', hour: 'numeric', minute: "numeric" })}</Td>
                         <Td>{song.historyUrl &&

@@ -1,8 +1,8 @@
-import { CheckIcon, CloseIcon } from '@chakra-ui/icons'
 import { Box, Button, Flex, Heading, Hide, Input, Show, Table, TableContainer, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { SetStateAction, useState } from 'react'
+import FeatherIcon from 'feather-icons-react';
 
 import { Error, Song } from 'npo'
 
@@ -68,7 +68,9 @@ export default function Home() {
                     </Hide>
                     <Th>Title</Th>
                     <Show above="sm">
-                      <Th>Top2000</Th>
+                      <Th>Rank</Th>
+                      <Th>Broadcast time</Th>
+                      <Th>History</Th>
                     </Show>
                   </Tr>
                 </Thead>
@@ -84,11 +86,24 @@ export default function Home() {
                         <Td>{song.artist}</Td>
                       </Show>
                       <Hide above="sm">
-                        <Td>{song.position.current ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                        <Td>{song.position.current ? <FeatherIcon icon="check" color="green" /> : <FeatherIcon icon="x" color="red" />}</Td>
                       </Hide>
                       <Td>{song.title}</Td>
                       <Show above="sm">
-                        <Td>{song.position.current ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                        <Td>{song.position.current ?
+                          song.position.current > song.position.previous ?
+                            <Flex><FeatherIcon icon="chevron-up" color="green" />{song.position.current}</Flex>
+                            : song.position.current < song.position.previous ?
+                              <Flex><FeatherIcon icon="chevron-down" color="orange" />{song.position.current}</Flex>
+                              : <Flex><FeatherIcon icon="minus" />{song.position.current}</Flex>
+                          : <FeatherIcon icon="x" color="red" />}</Td>
+                        <Td>{song.broadcastTime &&
+                          new Date(song.broadcastTime).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam', month: 'short', day: 'numeric', hour: 'numeric', minute: "numeric" })}</Td>
+                        <Td>{song.historyUrl &&
+                          (song.position.current >= song.position.previous ?
+                            <a href={"https://www.nporadio2.nl" + song.historyUrl} target="_blank" rel="noopener noreferrer"><FeatherIcon icon="trending-up" /></a>
+                            : <a href={"https://www.nporadio2.nl" + song.historyUrl} target="_blank" rel="noopener noreferrer"><FeatherIcon icon="trending-down" /></a>
+                          )}</Td>
                       </Show>
                     </Tr>
                   )}

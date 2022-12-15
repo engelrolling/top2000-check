@@ -15,6 +15,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'broadcast-images.nporadio.nl',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
       }
     ],
   },

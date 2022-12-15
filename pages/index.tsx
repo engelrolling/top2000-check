@@ -74,27 +74,28 @@ export default function Home() {
                 </Thead>
                 <Tbody>
                   {songList.map(song =>
-                    <Tr key={song.id}>
+                    <Tr key={song.title}>
                       <Show above="sm">
-                        {song.image ?
-                          <Td p={1}><Image src={song.image} width='44' height='44' alt={song.title}></Image></Td>
+                        {song.coverUrl ?
+                          <Td p={1}><Image src={song.coverUrl} width='44' height='44' alt={song.title}></Image></Td>
                           :
-                          !song.image && <Td p={1}><Image src="/default.png" width='44' height='44' alt={song.title}></Image></Td>
+                          !song.coverUrl && <Td p={1}><Image src="/default.png" width='44' height='44' alt={song.title}></Image></Td>
                         }
                         <Td>{song.artist}</Td>
                       </Show>
                       <Hide above="sm">
-                        <Td>{song.inList ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                        <Td>{song.position.current ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
                       </Hide>
                       <Td>{song.title}</Td>
                       <Show above="sm">
-                        <Td>{song.inList ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
+                        <Td>{song.position.current ? <CheckIcon color="green" /> : <CloseIcon color="red" />}</Td>
                       </Show>
                     </Tr>
                   )}
                 </Tbody>
               </Table>
-            </TableContainer></div>}
+            </TableContainer>
+          </div>}
         </Flex>
       </main>
     </div>

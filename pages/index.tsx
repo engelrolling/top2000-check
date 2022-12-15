@@ -91,16 +91,16 @@ export default function Home() {
                       <Td>{song.title}</Td>
                       <Show above="sm">
                         <Td>{song.position.current ?
-                          song.position.current > song.position.previous ?
+                          song.position.current < song.position.previous ?
                             <Flex><FeatherIcon icon="chevron-up" color="green" />{song.position.current}</Flex>
-                            : song.position.current < song.position.previous ?
+                            : song.position.current > song.position.previous ?
                               <Flex><FeatherIcon icon="chevron-down" color="orange" />{song.position.current}</Flex>
                               : <Flex><FeatherIcon icon="minus" />{song.position.current}</Flex>
                           : <FeatherIcon icon="x" color="red" />}</Td>
                         <Td>{song.broadcastTime &&
                           new Date(song.broadcastTime).toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam', month: 'short', day: 'numeric', hour: 'numeric', minute: "numeric" })}</Td>
                         <Td>{song.historyUrl &&
-                          (song.position.current >= song.position.previous ?
+                          (song.position.current <= song.position.previous ?
                             <a href={"https://www.nporadio2.nl" + song.historyUrl} target="_blank" rel="noopener noreferrer"><FeatherIcon icon="trending-up" /></a>
                             : <a href={"https://www.nporadio2.nl" + song.historyUrl} target="_blank" rel="noopener noreferrer"><FeatherIcon icon="trending-down" /></a>
                           )}</Td>

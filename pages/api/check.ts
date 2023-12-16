@@ -34,5 +34,11 @@ export default async function handler(
     song_list_checked = [...song_list_checked, song_details || song_defaults]
   }))
 
-  res.status(200).json(song_list_checked)
+  const song_list_ordered = song_list_checked.sort((a, b) => {
+    if (a.position.current === 0) return 1;
+    if (b.position.current === 0) return -1;
+    return a.position.current - b.position.current;
+  });
+
+  res.status(200).json(song_list_ordered)
 }
